@@ -33,8 +33,8 @@ public abstract  class AccountServiceImpl implements AccountService{
 	@Loggable
 	@Override
 	public Account transfer(int fromaccId, int toaccId, double amount) {
-      Account fromAcc=AccountDao.findAccountById(fromaccId);
-      Account toAcc=AccountDao.findAccountById(toaccId);
+      Account fromAcc=accountDao.findAccountById(fromaccId);
+      Account toAcc=accountDao.findAccountById(toaccId);
       fromAcc.setBalance(fromAcc.getBalance()-amount);
       toAcc.setBalance(toAcc.getBalance()+amount);
       accountDao.update(fromAcc);
@@ -61,19 +61,19 @@ public abstract  class AccountServiceImpl implements AccountService{
 
 	@Override
 	public Account findAccountById(int accountId) {
-		return AccountDao.findAccountById(accountId);
+		return accountDao.findAccountById(accountId);
 	}
 	
 	
 	@Override
 	public Account deposit(int depositId, double amount) {
-		Account accDeposit=AccountDao.findAccountById(depositId);
+		Account accDeposit=accountDao.findAccountById(depositId);
 		accDeposit.setBalance(accDeposit.getBalance()+amount);
 		return accountDao.update(accDeposit);
 	}
 	@Override
 	public Account withdraw(int withdrawId, double amount) {
-		Account accWithdraw=AccountDao.findAccountById(withdrawId);
+		Account accWithdraw=accountDao.findAccountById(withdrawId);
 		if(MIN_BALANCE>=1000)
 		{
 		accWithdraw.setBalance(accWithdraw.getBalance()-amount);
